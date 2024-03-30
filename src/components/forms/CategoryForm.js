@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { CRow, CCol, CFormInput, CButton, CForm } from '@coreui/react'
+import { CCol, CFormInput, CForm } from '@coreui/react'
 
 export const CategoryForm = ({ onSubmit, onChange, data }) => {
   return (

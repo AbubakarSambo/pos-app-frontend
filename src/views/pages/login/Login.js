@@ -23,6 +23,7 @@ const Login = () => {
   const dispatch = useDispatch()
 
   const handleLogin = () => {
+    // 08012192917 08011192837
     login({ phone: '08011192837', password: 'password' }).then(() => {
       dispatch({ type: 'set', isAuthenticated: true })
       navigate('/home')

@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { CFormSelect, CCol, CFormInput, CButton, CForm } from '@coreui/react'
+import { CFormSelect, CCol, CFormInput, CForm } from '@coreui/react'
 
 export const MenuForm = ({ onSubmit, onChange, data, categories }) => {
   const categoriesData =

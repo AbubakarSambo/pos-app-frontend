@@ -59,8 +59,8 @@ const MenuPage = () => {
   }
 
   const handleEdit = (props) => {
-    const menuToEdit = menus.find((menu) => menu.id == props.id)
-    const categoryToEdit = categories.find((category) => category.id == menuToEdit.categoryId)
+    const menuToEdit = menus.find((menu) => menu.id === props.id)
+    // const categoryToEdit = categories.find((category) => category.id == menuToEdit.categoryId)
     setIsInEditMode(true)
     setMenuFormData(menuToEdit)
     setMenuModalOpen(true)
