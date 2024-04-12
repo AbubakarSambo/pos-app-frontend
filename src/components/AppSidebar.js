@@ -17,13 +17,15 @@ import { logo } from '../assets/brand/logo'
 import { sygnet } from '../assets/brand/sygnet'
 
 // sidebar nav config
-import navigation from '../_nav'
+import navigations from '../_nav'
+import { useUserRole } from '../hooks/useUserRole'
 
 const AppSidebar = () => {
   const dispatch = useDispatch()
+  const userRole = useUserRole()
   const unfoldable = useSelector((state) => state.sidebarUnfoldable)
   const sidebarShow = useSelector((state) => state.sidebarShow)
-
+  const allowedNavItems = navigations.filter((r) => r.roles.includes(userRole.name))
   return (
     <CSidebar
       className="border-end"
@@ -46,7 +48,7 @@ const AppSidebar = () => {
           onClick={() => dispatch({ type: 'set', sidebarShow: false })}
         />
       </CSidebarHeader>
-      <AppSidebarNav items={navigation} />
+      <AppSidebarNav items={allowedNavItems} />
     </CSidebar>
   )
 }

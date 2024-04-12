@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import {
@@ -21,13 +21,21 @@ import { login } from '../../../services/login'
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [loginFormData, setLoginFormData] = useState({ phone: '', password: '' })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setLoginFormData({ ...loginFormData, [name]: value })
+  }
 
   const handleLogin = () => {
-    // 08012192917 08011192837
-    login({ phone: '08011192837', password: 'password' }).then(() => {
-      dispatch({ type: 'set', isAuthenticated: true })
-      navigate('/home')
-    })
+    // 08019283746 - Admin 07077726354 - chef 447746489015 - waiter
+    login(loginFormData)
+      .then(() => {
+        dispatch({ type: 'set', isAuthenticated: true })
+        navigate('/profile')
+      })
+      .catch((error) => {})
   }
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
@@ -44,16 +52,25 @@ const Login = () => {
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
+                      <CFormInput
+                        onChange={handleChange}
+                        placeholder="Phone"
+                        name="phone"
+                        autoComplete="phone"
+                        type="text"
+                        value={loginFormData.phone}
+                      />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
                         <CIcon icon={cilLockLocked} />
                       </CInputGroupText>
                       <CFormInput
+                        onChange={handleChange}
                         type="password"
                         placeholder="Password"
-                        autoComplete="current-password"
+                        name="password"
+                        value={loginFormData.password}
                       />
                     </CInputGroup>
                     <CRow>
@@ -62,29 +79,13 @@ const Login = () => {
                           Login
                         </CButton>
                       </CCol>
-                      <CCol xs={6} className="text-right">
+                      {/* <CCol xs={6} className="text-right">
                         <CButton color="link" className="px-0">
                           Forgot password?
                         </CButton>
-                      </CCol>
+                      </CCol> */}
                     </CRow>
                   </CForm>
-                </CCardBody>
-              </CCard>
-              <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                        Register Now!
-                      </CButton>
-                    </Link>
-                  </div>
                 </CCardBody>
               </CCard>
             </CCardGroup>

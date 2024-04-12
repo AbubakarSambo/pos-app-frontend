@@ -1,6 +1,6 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import { cilAlbum, cilHome, cilMenu, cilPeople, cilTablet } from '@coreui/icons'
+import { cilAlbum, cilFace, cilHome, cilMenu, cilPeople, cilTablet, cilUser } from '@coreui/icons'
 import { CNavItem } from '@coreui/react'
 
 const _nav = [
@@ -9,35 +9,49 @@ const _nav = [
     name: 'Home',
     to: '/home',
     icon: <CIcon icon={cilHome} customClassName="nav-icon" />,
-    roles: [2, 3, 4],
+    roles: ['Admin'],
   },
   {
     component: CNavItem,
     name: 'Menu',
     to: '/menu',
     icon: <CIcon icon={cilMenu} customClassName="nav-icon" />,
-    roles: [3],
+    roles: ['Admin', 'Chef', 'Waiter'],
   },
   {
     component: CNavItem,
     name: 'Orders',
     to: '/orders',
     icon: <CIcon icon={cilTablet} customClassName="nav-icon" />,
-    roles: [2],
+    roles: ['Admin', 'Waiter'],
   },
   {
     component: CNavItem,
     name: 'Categories',
     to: '/categories',
     icon: <CIcon icon={cilAlbum} customClassName="nav-icon" />,
-    roles: [2],
+    roles: ['Admin', 'Chef'],
   },
   {
     component: CNavItem,
     name: 'Customers',
     to: '/customers',
     icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
-    roles: [2],
+    roles: ['Admin', 'Waiter'],
+  },
+  {
+    component: CNavItem,
+    name: 'Users',
+    to: '/users',
+    icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
+    roles: ['Admin', 'Waiter'],
+  },
+  {
+    component: CNavItem,
+    name: 'Profile',
+    to: '/profile',
+    icon: <CIcon icon={cilFace} customClassName="nav-icon" />,
+    roles: ['Admin', 'Waiter', 'Chef'],
   },
 ]
 
