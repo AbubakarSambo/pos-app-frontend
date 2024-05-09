@@ -14,3 +14,21 @@ export function objectToQueryString(obj) {
   // Join the array elements with '&' and prepend with '?' to form the query string
   return '?' + queryParams.join('&')
 }
+
+export function formatNumberWithCommas(value) {
+  // Convert the number to a string and split it into parts before and after the decimal point
+  const [integerPart, decimalPart] = parseInt(value, 10).toFixed(2).split('.')
+
+  // Add commas for thousands and millions
+  let formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+  // Add the Nigerian Naira currency symbol
+  formattedIntegerPart = `₦ ${formattedIntegerPart}`
+
+  // Add back the decimal part if it exists
+  const formattedValue = decimalPart
+    ? `${formattedIntegerPart}.${decimalPart}`
+    : formattedIntegerPart
+
+  return formattedValue
+}

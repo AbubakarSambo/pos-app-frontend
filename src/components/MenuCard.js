@@ -1,19 +1,25 @@
 import React from 'react'
-import { CDropdown, CDropdownToggle, CDropdownItem, CDropdownMenu } from '@coreui/react'
+import { CDropdown, CDropdownToggle, CDropdownItem, CDropdownMenu, CRow } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 
 import { CCard, CCardBody, CCardImage, CCardText, CCol } from '@coreui/react'
 import { cilPlus, cilSettings } from '@coreui/icons'
+import { formatNumberWithCommas } from '../Util/functions'
 export const MenuCard = (props) => {
   return (
     <CCol key={props.id}>
       <CCard style={{ width: '18rem' }}>
         <CCardImage orientation="top" src={props.imageUrl} />
         <CCardBody>
-          <CCardText>{props.text}</CCardText>
+          <div className="d-flex justify-content-between">
+            <div>
+              <CCardText>{props.text}</CCardText>
+            </div>
+            <CIcon onClick={() => props.onAddToOrder(props)} size="lg" icon={cilPlus} />
+          </div>
           <CCardText>{props.description}</CCardText>
           <div className="d-flex justify-content-between">
-            <CCardText>{props.price}</CCardText>
+            <CCardText>{formatNumberWithCommas(props.price)}</CCardText>
 
             <CDropdown placement="bottom-end">
               <CDropdownToggle custom color="secondary">

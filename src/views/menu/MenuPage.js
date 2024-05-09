@@ -7,13 +7,16 @@ import { CreateModal } from '../../components/CreateModal'
 import { CategoryForm } from '../../components/forms/CategoryForm'
 import { deleteMenu, saveCategory, saveMenu, updateMenu } from './services/api'
 import { MenuForm } from '../../components/forms/MenuForm'
+import { OrderModal } from '../../components/OrderModal'
 const MenuPage = () => {
   const [categories, setCategories] = useState([])
   const [menus, setMenus] = useState([])
+  const [menuItemsInOrder, setMenuItemsInOrder] = useState([])
   const [activeCategory, setActiveCategory] = useState(null)
   const [isInEditMode, setIsInEditMode] = useState(false)
   const [categoryModalOpen, setCategoryModalOpen] = useState(false)
   const [menuModalOpen, setMenuModalOpen] = useState(false)
+  const [orderModalOpen, setOrderModalOpen] = useState(false)
   const [categoryFormData, setCategoryFormData] = useState({ category: '' })
   const [menuFormData, setMenuFormData] = useState({
     name: '',
@@ -74,6 +77,12 @@ const MenuPage = () => {
     })
   }
 
+  const handleAddToOrder = (menu) => {
+    console.log(menu)
+    setMenuItemsInOrder([...menuItemsInOrder, menu])
+    setOrderModalOpen(true)
+  }
+
   const handleNewMenuClick = () => {
     setMenuModalOpen(true)
   }
@@ -115,6 +124,9 @@ const MenuPage = () => {
     setMenuModalOpen(false)
     setIsInEditMode(false)
   }
+  const handleOrderModalClose = () => {
+    setOrderModalOpen(false)
+  }
   return (
     <>
       <CRow xs={{ cols: 4, gutter: 2 }} className="mb-3">
@@ -151,6 +163,7 @@ const MenuPage = () => {
                 description={menu.description}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
+                onAddToOrder={handleAddToOrder}
               />
             )
           })}
@@ -178,6 +191,12 @@ const MenuPage = () => {
           />
         }
         onSubmit={handleMenuSubmit}
+      />
+      <OrderModal
+        visible={orderModalOpen}
+        handleClose={handleOrderModalClose}
+        menuItems={menuItemsInOrder}
+        onCancelOrder={setMenuItemsInOrder}
       />
     </>
   )

@@ -31,3 +31,7 @@ export const genericFetch = async (url, queryParamObject = {}) => {
   const data = await api.get(`${url}${queryStringFromObject}`)
   return data
 }
+
+export const placeOrder = async (data) => {
+  return await api.post('/orders', data)
+}
