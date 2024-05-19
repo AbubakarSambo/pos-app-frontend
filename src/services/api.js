@@ -3,7 +3,7 @@ import { objectToQueryString } from '../Util/functions'
 const SKIP = 0
 const TAKE = 20
 export const api = axios.create({
-  baseURL: 'http://localhost:5555',
+  baseURL: 'https://pos-app-backend-e64cd4970de0.herokuapp.com',
 })
 
 api.interceptors.request.use(
