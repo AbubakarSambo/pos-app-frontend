@@ -32,3 +32,20 @@ export function formatNumberWithCommas(value) {
 
   return formattedValue
 }
+
+export function getCurrentWeekDates() {
+  const today = new Date()
+  const dayOfWeek = today.getDay() // 0 (Sunday) to 6 (Saturday)
+
+  // Calculate start date
+  const startDate = new Date(today) // Clone the current date
+  startDate.setDate(today.getDate() - dayOfWeek) // Set to the first day of the week (Sunday)
+  startDate.setHours(0, 1, 0, 0) // Set time to 12:01 am (00:01)
+
+  // Calculate end date
+  const endDate = new Date(today) // Clone the current date
+  endDate.setDate(today.getDate() + (6 - dayOfWeek)) // Set to the last day of the week (Saturday)
+  endDate.setHours(23, 59, 59, 999) // Set time to 11:59:59.999 pm
+
+  return { startDate, endDate }
+}

@@ -16,7 +16,6 @@ import { cilSettings } from '@coreui/icons'
 import { Pagination } from '../../components/Pagination'
 import { CreateModal } from '../../components/CreateModal'
 import { CustomerForm } from '../../components/forms/CustomerForm'
-// import { saveCategory } from '../menu/services/api'
 import { deleteCustomer, saveCustomer, updateCustomer } from './services/api'
 
 const ITEMS_PER_PAGE = 10

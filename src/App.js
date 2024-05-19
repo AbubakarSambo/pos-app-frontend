@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux'
 
 import { CSpinner, useColorModes } from '@coreui/react'
 import './scss/style.scss'
+import 'react-datepicker/dist/react-datepicker.css'
+
 import { useIsAuthenticated } from './hooks/useIsAuthenticated'
 
 // Containers

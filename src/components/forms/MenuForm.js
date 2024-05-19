@@ -7,7 +7,7 @@ export const MenuForm = ({ onSubmit, onChange, data, categories }) => {
       label: cat.name,
       value: cat.id,
     }))
-  console.log({ data, categoriesData })
+
   return (
     <CForm onSubmit={onSubmit} className="row g-3">
       <CCol md={6}>

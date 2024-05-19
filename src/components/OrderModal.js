@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   COffcanvasHeader,
   COffcanvasBody,
@@ -12,7 +13,6 @@ import {
 } from '@coreui/react'
 import Async, { useAsync } from 'react-select/async'
 import { genericFetch, placeOrder } from '../services/api'
-import { useEffect, useState } from 'react'
 import { formatNumberWithCommas } from '../Util/functions'
 import { useUserOrg } from '../hooks/useUserRole'
 import { OrderStatus } from '../Util/types'
@@ -26,14 +26,25 @@ const customStyles = {
 
 export const OrderModal = (props) => {
   const [customer, setCustomer] = useState({})
+  const [total, setTotal] = useState(0)
+  const [totalWithVat, setTotalWithVat] = useState(0)
+  const [orderSource, setOrderSource] = useState({})
   const [orderButtonDisabled, setOrderButtonDisabled] = useState(true)
-  console.log({ props, customer })
   const orgId = useUserOrg()
   useEffect(() => {
-    if (props.menuItems.length > 0 && customer.value) {
+    if (props.menuItems.length > 0 && orderSource.value) {
       setOrderButtonDisabled(false)
     }
-  }, [props.menuItems, customer])
+  }, [props.menuItems, orderSource])
+
+  useEffect(() => {
+    const total = props.menuItems.reduce(
+      (accumulator, currentValue) => Number(currentValue.price) + accumulator,
+      0,
+    )
+    setTotal(total)
+    setTotalWithVat(0.075 * total)
+  }, [props.menuItems])
   const loadOptions = async (inputValue) => {
     const { data } = await genericFetch('/customers/search', { query: inputValue })
     return data?.map((customer) => {
@@ -43,10 +54,21 @@ export const OrderModal = (props) => {
       }
     })
   }
+
+  const loadSourceOptions = async () => {
+    const { data } = await genericFetch('/order-sources')
+    return data?.map((orderSource) => {
+      return {
+        label: orderSource.name,
+        value: orderSource.id,
+      }
+    })
+  }
   const handleSelectionChange = (selectedOption) => {
-    // Handle the selected option(s)
-    console.log('Selected Option:', selectedOption)
     setCustomer(selectedOption)
+  }
+  const handleOrderSourceSelectionChange = (selectedOption) => {
+    setOrderSource(selectedOption)
   }
   const handleCancelOrder = () => {
     props.onCancelOrder([])
@@ -61,14 +83,14 @@ export const OrderModal = (props) => {
       status: OrderStatus.OPEN,
       customer: customer.value,
       menu: props.menuItems.map((item) => item.id),
+      orderSource: orderSource.value,
     }
-    console.log({ orderObject })
+
     placeOrder(orderObject).then(({ data }) => {
-      console.log({ data })
       handleCancelOrder()
     })
   }
-  console.log({ menuItems: props.menuItems })
+
   return (
     <>
       <COffcanvas placement="end" visible={props.visible} onHide={props.handleClose}>
@@ -88,6 +110,16 @@ export const OrderModal = (props) => {
                 value={customer}
               />
               <hr className="mt-2 mb-3" />
+              Source
+              <Async
+                cacheOptions
+                loadOptions={loadSourceOptions}
+                defaultOptions
+                styles={customStyles}
+                onChange={handleOrderSourceSelectionChange}
+                value={orderSource}
+              />
+              <hr className="mt-2 mb-3" />
               {props.menuItems.map((menu) => {
                 return (
                   <CRow>
@@ -96,6 +128,14 @@ export const OrderModal = (props) => {
                   </CRow>
                 )
               })}
+              <CRow>
+                <CCol>VAT(7.5%)</CCol>
+                <CCol>{formatNumberWithCommas(0.075 * total)}</CCol>
+              </CRow>
+              <CRow>
+                <CCol>Total)</CCol>
+                <CCol>{formatNumberWithCommas(totalWithVat + total)}</CCol>
+              </CRow>
             </div>
 
             <div>

@@ -27,7 +27,7 @@ export default api
 export const genericFetch = async (url, queryParamObject = {}) => {
   const defaultObject = { skip: SKIP, take: TAKE, ...queryParamObject }
   const queryStringFromObject = objectToQueryString(defaultObject)
-
+  console.log({ queryStringFromObject })
   const data = await api.get(`${url}${queryStringFromObject}`)
   return data
 }
