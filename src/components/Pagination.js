@@ -7,7 +7,6 @@ export const Pagination = ({ total, onPageChange, activePage }) => {
   const pages = Math.ceil(total / ITEMS_PER_PAGE)
 
   const pageItems = Array.from({ length: pages }, (_, index) => index + 1)
-  console.log({ total, pages, activePage })
 
   const handlePreviousClick = () => {
     if (activePage > 1) {

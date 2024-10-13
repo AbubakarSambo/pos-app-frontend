@@ -103,7 +103,6 @@ const Category = () => {
       updateCategory({ ...categoryFormData, name: categoryFormData.category }).then(({ data }) => {
         setCategoryFormData({})
         setCategoryModalOpen(false)
-        console.log({ data })
         const updatedCategories = categories.data.map((cat) => {
           return cat.id === data.id ? { ...data } : cat
         })
@@ -119,13 +118,11 @@ const Category = () => {
   const handleEdit = (category) => {
     const categoryToEdit = categories.data.find((cat) => cat.id === category.id)
     setIsInEditMode(true)
-    console.log(categoryToEdit)
 
     setCategoryFormData({ ...categoryToEdit, category: categoryToEdit.name })
     setCategoryModalOpen(true)
   }
   const handleDelete = (category) => {
-    console.log({ category })
     deleteCategory(category.id).then(() => {
       const updatedCategories = categories.data.filter((cat) => {
         return cat.id !== category.id

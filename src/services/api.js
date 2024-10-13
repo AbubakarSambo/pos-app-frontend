@@ -3,7 +3,7 @@ import { objectToQueryString } from '../Util/functions'
 const SKIP = 0
 const TAKE = 20
 export const api = axios.create({
-  baseURL: 'https://pos-app-backend-e64cd4970de0.herokuapp.com',
+  baseURL: process.env.REACT_APP_API_URL,
 })
 
 api.interceptors.request.use(
@@ -27,7 +27,6 @@ export default api
 export const genericFetch = async (url, queryParamObject = {}) => {
   const defaultObject = { skip: SKIP, take: TAKE, ...queryParamObject }
   const queryStringFromObject = objectToQueryString(defaultObject)
-  console.log({ queryStringFromObject })
   const data = await api.get(`${url}${queryStringFromObject}`)
   return data
 }

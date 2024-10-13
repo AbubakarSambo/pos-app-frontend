@@ -127,7 +127,6 @@ const Customer = () => {
   }
   const handleChange = (e) => {
     const { name, value } = e.target
-    console.log({ name, value })
     setUserFormData({ ...userFormData, [name]: value })
   }
   const handleSubmit = () => {
@@ -142,7 +141,6 @@ const Customer = () => {
       updateUser({ ...userFormData }).then(({ data }) => {
         setUserFormData({})
         setUserModalOpen(false)
-        console.log({ data })
         const updatedUsers = users.data.map((cat) => {
           return cat.id === data.id ? { ...data } : cat
         })
@@ -158,7 +156,6 @@ const Customer = () => {
   const handleEdit = (customer) => {
     const userToEdit = users.data.find((cat) => cat.id === customer.id)
     setIsInEditMode(true)
-    console.log(userToEdit)
 
     setUserFormData({ ...userToEdit })
     setUserModalOpen(true)
@@ -176,7 +173,6 @@ const Customer = () => {
       })
     })
   }
-  console.log({ formattedTableData })
   return (
     <>
       <CContainer>

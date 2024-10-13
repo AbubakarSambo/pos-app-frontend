@@ -124,9 +124,6 @@ const Customer = () => {
   }
   const handleSubmit = () => {
     if (!isInEditMode) {
-      // const data = {
-      //   name: customerFormData.category,
-      // }
       saveCustomer(customerFormData).then(({ data }) => {
         setCustomerFormData({})
         setCustomerModalOpen(false)
@@ -136,7 +133,6 @@ const Customer = () => {
       updateCustomer({ ...customerFormData, name: customerFormData.category }).then(({ data }) => {
         setCustomerFormData({})
         setCustomerModalOpen(false)
-        console.log({ data })
         const updatedCategories = customers.data.map((cat) => {
           return cat.id === data.id ? { ...data } : cat
         })
@@ -152,7 +148,6 @@ const Customer = () => {
   const handleEdit = (customer) => {
     const categoryToEdit = customers.data.find((cat) => cat.id === customer.id)
     setIsInEditMode(true)
-    console.log(categoryToEdit)
 
     setCustomerFormData({ ...categoryToEdit, category: categoryToEdit.name })
     setCustomerModalOpen(true)
@@ -170,7 +165,7 @@ const Customer = () => {
       })
     })
   }
-  console.log({ formattedTableData })
+
   return (
     <>
       <CContainer>

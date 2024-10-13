@@ -27,7 +27,7 @@ const Order = () => {
       <div class="container text-center mt-2">
         <div class="row bg-info border border-1 border-info rounded p-2 mb-3">
           <div class="col-3">Item</div>
-          <div class="col">Order id</div>
+          <div class="col">Requests</div>
           <div class="col">Customer</div>
           <div class="col">Date</div>
           <div class="col">Source</div>
@@ -52,7 +52,7 @@ const Order = () => {
                       return <p>{menu.name}</p>
                     })}
                 </div>
-                <div class="col">{order.id}</div>
+                <div class="col">{order.specialRequest}</div>
                 <div class="col">{`${order.customer?.firstName ?? ''} ${
                   order.customer?.lastName ?? ''
                 }`}</div>

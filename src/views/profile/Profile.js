@@ -30,7 +30,6 @@ const Profile = () => {
   useEffect(() => {
     getProfile(userId).then(({ data }) => {
       setProfile(data)
-      console.log({ data })
       setUserFormData(data)
     })
   }, [userId])
@@ -58,7 +57,6 @@ const Profile = () => {
   const handleResetSubmit = () => {
     resetPassword({ ...resetFormData, id: userId })
       .then(async ({ data }) => {
-        console.log({ data })
         setResetFormData({})
         setResetModalOpen(false)
       })
@@ -66,7 +64,6 @@ const Profile = () => {
         console.log(e)
       })
   }
-  console.log({ resetFormData, userFormData })
 
   return (
     <CContainer>

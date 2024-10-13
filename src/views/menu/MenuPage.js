@@ -78,7 +78,6 @@ const MenuPage = () => {
   }
 
   const handleAddToOrder = (menu) => {
-    console.log(menu)
     setMenuItemsInOrder([...menuItemsInOrder, menu])
     setOrderModalOpen(true)
   }

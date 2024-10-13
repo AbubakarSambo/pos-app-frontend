@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux'
 import { CSpinner, useColorModes } from '@coreui/react'
 import './scss/style.scss'
 import 'react-datepicker/dist/react-datepicker.css'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
+import './rbc.css'
 
 import { useIsAuthenticated } from './hooks/useIsAuthenticated'
 
@@ -24,7 +26,6 @@ const App = () => {
   useEffect(() => {
     setColorMode(storedTheme)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
-  console.log({ isAuthenticated })
   return (
     <HashRouter>
       <Suspense

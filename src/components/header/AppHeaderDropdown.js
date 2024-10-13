@@ -17,7 +17,6 @@ import { useLogout } from '../../hooks/useLogout'
 const AppHeaderDropdown = () => {
   const { logout } = useLogout()
   const handleLogout = () => {
-    console.log('heree')
     logout()
   }
   return (

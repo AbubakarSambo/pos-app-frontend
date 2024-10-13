@@ -3,15 +3,13 @@ import {
   COffcanvasHeader,
   COffcanvasBody,
   COffcanvasTitle,
-  CModalHeader,
-  CModalTitle,
+  CFormInput,
   CButton,
   COffcanvas,
-  CCloseButton,
   CRow,
   CCol,
 } from '@coreui/react'
-import Async, { useAsync } from 'react-select/async'
+import Async from 'react-select/async'
 import { genericFetch, placeOrder } from '../services/api'
 import { formatNumberWithCommas } from '../Util/functions'
 import { useUserOrg } from '../hooks/useUserRole'
@@ -29,6 +27,7 @@ export const OrderModal = (props) => {
   const [total, setTotal] = useState(0)
   const [totalWithVat, setTotalWithVat] = useState(0)
   const [orderSource, setOrderSource] = useState({})
+  const [specialRequest, setSpecialRequest] = useState('')
   const [orderButtonDisabled, setOrderButtonDisabled] = useState(true)
   const orgId = useUserOrg()
   useEffect(() => {
@@ -70,6 +69,11 @@ export const OrderModal = (props) => {
   const handleOrderSourceSelectionChange = (selectedOption) => {
     setOrderSource(selectedOption)
   }
+
+  const handleSpecialRequest = (e) => {
+    const { value } = e.target
+    setSpecialRequest(value)
+  }
   const handleCancelOrder = () => {
     props.onCancelOrder([])
     props.handleClose()
@@ -84,6 +88,7 @@ export const OrderModal = (props) => {
       customer: customer.value,
       menu: props.menuItems.map((item) => item.id),
       orderSource: orderSource.value,
+      specialRequest,
     }
 
     placeOrder(orderObject).then(({ data }) => {
@@ -120,6 +125,12 @@ export const OrderModal = (props) => {
                 value={orderSource}
               />
               <hr className="mt-2 mb-3" />
+              <CFormInput
+                onChange={handleSpecialRequest}
+                value={specialRequest}
+                type="text"
+                label="Special Request"
+              />
               {props.menuItems.map((menu) => {
                 return (
                   <CRow>

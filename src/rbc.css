@@ -1,0 +1,16 @@
+.rbc-toolbar button {
+    color: white
+}
+
+.rbc-selected-cell {
+    background-color: #0056b3 !important; /* Highlight background for selected cells */
+    color: #ffffff; /* Change the text color */
+    opacity: 0.8; /* Make it slightly transparent */
+  }
+
+
+  .rbc-day-bg + .rbc-today {
+    background-color: #FF7043
+  }
+
+  

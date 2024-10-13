@@ -88,15 +88,12 @@ export const EditOrderForm = ({ orderId, onClose, onOrderUpdate }) => {
     })
   }
   const handleCustomerChange = (customer) => {
-    console.log({ customer })
     setCustomer(customer)
   }
   const handleSourceChange = (source) => {
-    console.log({ source })
     setSource(source)
   }
 
-  console.log({ customer, status, source, menu })
   return (
     <CModal visible={orderId} onClose={onClose}>
       <CModalHeader>
